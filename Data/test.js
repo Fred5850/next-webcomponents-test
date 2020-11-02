@@ -20,4 +20,4 @@ function Test() {
         }
     }
     request.send()
-}
+};
