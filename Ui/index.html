@@ -1,32 +1,25 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <script type="text/javascript" src="/Logic/customer.js"></script>
+    <script type="text/javascript" src="/Data/api.js"></script>
+    <script type="text/javascript" src="/Data/readXML.js"></script>
+    <script type="text/javascript" src="/Data/fetchingCred.js"></script>
+  </head>
   <body>
     <input
       type="button"
       class="btn btn-primary"
-      value="Call Web API"
-      onclick="javascript:CallWebApi();"
+      value="test FetchingCredentials"
+      onclick="javascript:FetchingCredentials();"
     />
     <br />
     <br />
     <input
       type="button"
       class="btn btn-primary"
-      value="Test Fetch"
-      onclick="javascript:Test();"
-    />
-    <br />
-    <br />
-    <input
-      type="button"
-      class="btn btn-primary"
-      value="getXML"
-      onclick="javascript:readXML();"
+      value="test get Json"
+      onclick="javascript:TakeCrednetialsAndGo('9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_51VTF6X3XCG6NSD4TR');"
     />
   </body>
 </html>
-
-<script type="text/javascript" src="/Logic/customer.js"></script>
-<script type="text/javascript" src="/Data/api.js"></script>
-<script type="text/javascript" src="/Data/readXML.js"></script>
-<script type="text/javascript" src="/Data/fetch.js"></script>
