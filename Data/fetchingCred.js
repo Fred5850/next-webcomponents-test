@@ -18,15 +18,30 @@ function FetchingCredentials() {
     });
 }
 
-function getItem(credentials) {
-  var url =
-    "http://localhost:8080/rest/list/1/items/YEL/0/10/InvoiceId/385987?cred=" +
-    credentials;
-  return fetch(url).then((response) => response.json());
-}
 function getContent(credentials) {
   getItem(credentials).then((data) => {
-    console.log(data);
+    //console.log(data); // whole json object
+    contents = data.result[0].contents;
+    if (contents.length == 1) {
+      console.log(contents); //content
+      id = contents[0].id;
+      console.log(id);
+      representations = contents[0].representations;
+      //console.log(representations);
+
+      representations.forEach((obj) => {
+        Object.entries(obj).forEach(([key, value]) => {
+          //console.log(`${key} = ${value}`); //each key value pair in repesentation
+          if ("fulltext" == `${value}`) {
+            getSpecificContentRepresentation(`${value}`, credentials);
+          } else if ("preview" == `${value}`) {
+            getSpecificContentRepresentation(`${value}`, credentials);
+          }
+        });
+      });
+    } else {
+      console.log("no content viable or more than 2 - error");
+    }
   });
 }
 //dagens credentials 05-11
@@ -40,6 +55,7 @@ function GetMetaData(credentials) {
       //console.log(obj); //metadata
       Object.entries(obj).forEach(([key, value]) => {
         console.log(`${key} = ${value}`); //each key value pair in meta data
+        //#TODO do stuff with meta data
       });
       console.log("-------------------");
     });
@@ -48,6 +64,24 @@ function GetMetaData(credentials) {
   });
 }
 
-//     if ("label" == `${key}`) {
-//       console.log(`${key} = ${value}`);
-//     }
+function getItem(credentials) {
+  var url = "http://localhost:8080/rest/list/1/items/YEL/0/10/InvoiceId/385987";
+
+  return fetch(url, {
+    method: "get",
+    headers: {
+      Authorization: "next " + credentials,
+    },
+  }).then((response) => response.json());
+}
+
+function getSpecificContentRepresentation(value, credentials) {
+  url = "http://localhost:8080/rest/id/1/" + id + "?representation=" + value;
+  console.log("getSpecificContent url: " + url);
+  fetch(url, {
+    method: "get",
+    headers: {
+      Authorization: "next " + credentials,
+    },
+  });
+}

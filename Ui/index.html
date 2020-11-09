@@ -7,27 +7,27 @@
     <script type="text/javascript" src="/Data/fetchingCred.js"></script>
   </head>
   <body>
-    <input
-      type="button"
-      class="btn btn-primary"
-      value="test FetchingCredentials"
-      onclick="javascript:FetchingCredentials();"
-    />
+    <div id="buttons">
+      <input
+        type="button"
+        class="btn btn-primary"
+        value="test FetchingCredentials"
+        onclick="javascript:FetchingCredentials();"
+      />
+      <input
+        type="button"
+        class="btn btn-primary"
+        value="test get Json"
+        onclick="javascript:GetMetaData('9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_39CSHWWZPV0GYRBK784CE');"
+      />
+      <input
+        type="button"
+        class="btn btn-primary"
+        value="get Content"
+        onclick="javascript:getContent('9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_39CSHWWZPV0GYRBK784CE');"
+      />
+    </div>
     <br />
-    <br />
-    <input
-      type="button"
-      class="btn btn-primary"
-      value="test get Json"
-      onclick="javascript:GetMetaData('9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_39CSHWWZPV0GYRBK784CE');"
-    />
-    <br />
-    <br />
-    <input
-      type="button"
-      class="btn btn-primary"
-      value="get Item"
-      onclick="javascript:getContent('9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_39CSHWWZPV0GYRBK784CE');"
-    />
+    <div id="iframe"></div>
   </body>
 </html>
