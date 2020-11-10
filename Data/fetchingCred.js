@@ -1,4 +1,4 @@
-function FetchingCredentials() {
+function FetchingCredentials(invoiceId) {
   console.log("TeFetchingCredentialsst called: Start");
   var credentials = "";
   fetch("http://localhost:8080/rest/authenticate", {
@@ -13,14 +13,13 @@ function FetchingCredentials() {
       credentials = data.ticket;
       console.log(data);
       console.log(credentials);
-      obtainMetaData(credentials);
-      obtainContent(credentials);
-      console.log("FetchingCredentials called: End");
+      obtainMetaData(credentials, invoiceId);
+      obtainContent(credentials, invoiceId);
     });
 }
 
-function obtainContent(credentials) {
-  obtainItem(credentials).then((data) => {
+function obtainContent(credentials, invoiceId) {
+  obtainItem(credentials, invoiceId).then((data) => {
     contents = data.result[0].contents;
     if (contents.length == 1) {
       id = contents[0].id;
@@ -29,10 +28,9 @@ function obtainContent(credentials) {
 
       representations.forEach((obj) => {
         Object.entries(obj).forEach(([key, value]) => {
-          //console.log(`${key} = ${value}`); //each key value pair in repesentation
-          if ("fulltext" == `${value}`) {
+          if ("preview" == `${value}`) {
             obtainSpecificContentRepresentation(`${value}`, credentials);
-          } else if ("preview" == `${value}`) {
+          } else if ("fulltext" == `${value}`) {
             obtainSpecificContentRepresentation(`${value}`, credentials);
           }
         });
@@ -42,10 +40,12 @@ function obtainContent(credentials) {
     }
   });
 }
-function obtainMetaData(credentials) {
-  obtainItem(credentials).then((data) => {
+
+function obtainMetaData(credentials, invoiceId) {
+  obtainItem(credentials, invoiceId).then((data) => {
     test = data.result[0].metadata;
     var table = document.getElementById("metadata");
+    table.innerHTML = "";
     test.forEach((obj) => {
       var row = table.insertRow(0);
       row.insertCell(0).innerHTML = obj.label;
@@ -54,8 +54,9 @@ function obtainMetaData(credentials) {
   });
 }
 
-function obtainItem(credentials) {
-  var url = "http://localhost:8080/rest/list/1/items/YEL/0/10/InvoiceId/385987";
+function obtainItem(credentials, invoiceId) {
+  var url =
+    "http://localhost:8080/rest/list/1/items/YEL/0/10/InvoiceId/" + invoiceId;
 
   return fetch(url, {
     method: "get",
