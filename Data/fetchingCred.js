@@ -83,5 +83,8 @@ function getSpecificContentRepresentation(value, credentials) {
     headers: {
       Authorization: "next " + credentials,
     },
+  }).then((response) => {
+    var iframe = document.getElementById("iframeDoc");
+    iframe.src = response.url;
   });
 }
