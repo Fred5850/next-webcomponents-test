@@ -10,32 +10,30 @@ function FetchingCredentials() {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       credentials = data.ticket;
+      console.log(data);
       console.log(credentials);
-      //GetMetaData(credentials);
+      obtainMetaData(credentials);
+      obtainContent(credentials);
       console.log("FetchingCredentials called: End");
     });
 }
 
-function getContent(credentials) {
-  getItem(credentials).then((data) => {
-    //console.log(data); // whole json object
+function obtainContent(credentials) {
+  obtainItem(credentials).then((data) => {
     contents = data.result[0].contents;
     if (contents.length == 1) {
-      console.log(contents); //content
       id = contents[0].id;
       console.log(id);
       representations = contents[0].representations;
-      //console.log(representations);
 
       representations.forEach((obj) => {
         Object.entries(obj).forEach(([key, value]) => {
           //console.log(`${key} = ${value}`); //each key value pair in repesentation
           if ("fulltext" == `${value}`) {
-            getSpecificContentRepresentation(`${value}`, credentials);
+            obtainSpecificContentRepresentation(`${value}`, credentials);
           } else if ("preview" == `${value}`) {
-            getSpecificContentRepresentation(`${value}`, credentials);
+            obtainSpecificContentRepresentation(`${value}`, credentials);
           }
         });
       });
@@ -44,27 +42,19 @@ function getContent(credentials) {
     }
   });
 }
-//dagens credentials 05-11
-//9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_GDVWF5B82EKJGAHSWV5AQG0
-function GetMetaData(credentials) {
-  console.log("GetMetaData called: Start");
-  getItem(credentials).then((data) => {
-    //console.log(data); // whole object
+function obtainMetaData(credentials) {
+  obtainItem(credentials).then((data) => {
     test = data.result[0].metadata;
+    var table = document.getElementById("metadata");
     test.forEach((obj) => {
-      //console.log(obj); //metadata
-      Object.entries(obj).forEach(([key, value]) => {
-        console.log(`${key} = ${value}`); //each key value pair in meta data
-        //#TODO do stuff with meta data
-      });
-      console.log("-------------------");
+      var row = table.insertRow(0);
+      row.insertCell(0).innerHTML = obj.label;
+      row.insertCell(1).innerHTML = obj.value;
     });
-    console.log(test);
-    console.log("GetMetaData called: End");
   });
 }
 
-function getItem(credentials) {
+function obtainItem(credentials) {
   var url = "http://localhost:8080/rest/list/1/items/YEL/0/10/InvoiceId/385987";
 
   return fetch(url, {
@@ -75,9 +65,8 @@ function getItem(credentials) {
   }).then((response) => response.json());
 }
 
-function getSpecificContentRepresentation(value, credentials) {
+function obtainSpecificContentRepresentation(value, credentials) {
   url = "http://localhost:8080/rest/id/1/" + id + "?representation=" + value;
-  console.log("getSpecificContent url: " + url);
   fetch(url, {
     method: "get",
     headers: {

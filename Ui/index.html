@@ -19,33 +19,23 @@
         type="button"
         class="btn btn-primary"
         value="test get Json"
-        onclick="javascript:GetMetaData('9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_JAR5CV1B6ARV7NNY');"
+        onclick="javascript:obtainMetaData('9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_JAR5CV1B6ARV7NNY');"
       />
       <input
         type="button"
         class="btn btn-primary"
         value="get Content"
-        onclick="javascript:getContent('9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_JAR5CV1B6ARV7NNY');"
+        onclick="javascript:obtainContent('9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_JAR5CV1B6ARV7NNY');"
       />
     </div>
+    <br />
+    <br />
+
     <br />
     <div class="row">
       <iframe class="nerds-iframe" id="iframeDoc" src=""></iframe>
 
-      <table style="width: 15%">
-        <tr>
-          <th>Key</th>
-          <th>Value</th>
-        </tr>
-        <tr>
-          <td>Jill</td>
-          <td>Smith</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td>
-        </tr>
-      </table>
+      <table style="width: 15%" id="metadata"></table>
     </div>
   </body>
 </html>

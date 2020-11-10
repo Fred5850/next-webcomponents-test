@@ -2,10 +2,10 @@ class Customer {
   constructor(username, password, url) {
     this._username = username;
     this._password = password;
-    this._url = url;
+    this._weburl = weburl;
   }
   present() {
-    return this._username + ":" + this._password + " -> " + this._url;
+    return this._username + ":" + this._password + " -> " + this._weburl;
   }
   get username() {
     return this._username;
@@ -13,7 +13,7 @@ class Customer {
   get password() {
     return this._password;
   }
-  get url() {
-    return this._url;
+  get weburl() {
+    return this._weburl;
   }
 }
