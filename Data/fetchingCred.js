@@ -1,5 +1,4 @@
-function FetchingCredentials(invoiceId) {
-  console.log("TeFetchingCredentialsst called: Start");
+function fetchingCredentials(invoiceId) {
   var credentials = "";
   fetch("http://localhost:8080/rest/authenticate", {
     method: "get",
@@ -11,8 +10,8 @@ function FetchingCredentials(invoiceId) {
     .then((response) => response.json())
     .then((data) => {
       credentials = data.ticket;
-      console.log(data);
-      console.log(credentials);
+      console.log("data: " + data);
+      console.log("credentials : " + credentials);
       obtainMetaData(credentials, invoiceId);
       obtainContent(credentials, invoiceId);
     });
@@ -22,7 +21,7 @@ function obtainContent(credentials, invoiceId) {
   obtainItem(credentials, invoiceId).then((data) => {
     contents = data.result[0].contents;
     if (contents.length == 1) {
-      id = contents[0].id;
+      id = contents[0].id; //urn:multiarchive:content:YEL:36965-36968#1-1
       console.log(id);
       representations = contents[0].representations;
 
@@ -61,17 +60,18 @@ function obtainItem(credentials, invoiceId) {
   return fetch(url, {
     method: "get",
     headers: {
-      Authorization: "next " + credentials,
+      Authorization: "Next " + credentials,
     },
   }).then((response) => response.json());
 }
 
 function obtainSpecificContentRepresentation(value, credentials) {
   url = "http://localhost:8080/rest/id/1/" + id + "?representation=" + value;
+  console.log(url);
   fetch(url, {
     method: "get",
     headers: {
-      Authorization: "next " + credentials,
+      Authorization: "Next " + credentials,
     },
   }).then((response) => {
     var iframe = document.getElementById("iframeDoc");
