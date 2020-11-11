@@ -10,7 +10,7 @@ function fetchingCredentials(invoiceId) {
     .then((response) => response.json())
     .then((data) => {
       credentials = data.ticket;
-      console.log("data: " + data);
+      console.log(data);
       console.log("credentials : " + credentials);
       obtainMetaData(credentials, invoiceId);
       obtainContent(credentials, invoiceId);
@@ -74,7 +74,12 @@ function obtainSpecificContentRepresentation(value, credentials) {
       Authorization: "Next " + credentials,
     },
   }).then((response) => {
+    console.log(response);
     var iframe = document.getElementById("iframeDoc");
-    iframe.src = response.url;
+    if (response.status == 200) {
+      iframe.src = url;
+    } else {
+      console.log("response status is not 200, error");
+    }
   });
 }
