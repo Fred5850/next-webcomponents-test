@@ -25,15 +25,20 @@ function obtainContent(credentials, invoiceId) {
       console.log(id);
       representations = contents[0].representations;
 
+      var previewfound = false;
       representations.forEach((obj) => {
         Object.entries(obj).forEach(([key, value]) => {
           if ("preview" == `${value}`) {
-            obtainSpecificContentRepresentation(`${value}`, credentials);
-          } else if ("fulltext" == `${value}`) {
-            obtainSpecificContentRepresentation(`${value}`, credentials);
+            previewfound = true;
+            return;
           }
         });
       });
+      if (previewfound) {
+        obtainSpecificContentRepresentation("preview", credentials);
+      } else {
+        obtainSpecificContentRepresentation("original", credentials);
+      }
     } else {
       console.log("no content viable or more than 2 - error");
     }
@@ -66,7 +71,13 @@ function obtainItem(credentials, invoiceId) {
 }
 
 function obtainSpecificContentRepresentation(value, credentials) {
-  url = "http://localhost:8080/rest/id/1/" + id + "?representation=" + value;
+  url =
+    "http://localhost:8080/rest/id/1/" +
+    id +
+    "?representation=" +
+    value +
+    "&cred=" +
+    credentials;
   console.log(url);
   fetch(url, {
     method: "get",
