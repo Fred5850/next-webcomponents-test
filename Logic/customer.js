@@ -4,7 +4,6 @@ class Customer {
     this._password = password;
     this._weburl = weburl;
   }
-
   present() {
     return this._username + ":" + this._password + " -> " + this._weburl;
   }
