@@ -1,2 +1,2 @@
 import "./components/next-metadata.js";
-import "./components/my-elements.js";
+import "./my-element.js";

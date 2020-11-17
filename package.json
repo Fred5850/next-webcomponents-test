@@ -1,0 +1,26 @@
+{
+  "name": "nextwaywebcomponents",
+  "version": "0.0.0",
+  "description": "nextway webcomponents",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "es-dev-server --app-index ui/index.html --node-resolve --watch --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fred5850/next-webcomponents.git"
+  },
+  "author": "Fred5850",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fred5850/next-webcomponents/issues"
+  },
+  "homepage": "https://github.com/Fred5850/next-webcomponents#readme",
+  "dependencies": {
+    "lit-element": "^2.4.0"
+  },
+  "devDependencies": {
+    "es-dev-server": "^1.57.8"
+  }
+}
