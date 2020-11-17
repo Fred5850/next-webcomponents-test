@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script type="text/javascript" src="/Logic/customer.js"></script>
-    <script type="text/javascript" src="/Data/fetchingCred.js"></script>
+    <script type="text/javascript" src="/data/fetchingCred.js"></script>
+    <script type="module" src="/components/next-metadata.js"></script>
+    <script type="module" src="/components/my-element.js"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div>
+      <next-metadata></next-metadata>
+      <my-element></my-element>
+    </div>
     <div id="buttons">
       <input
         type="button"
@@ -13,34 +18,20 @@
         value="test FetchingCredentials"
         onclick="javascript:fetchingCredentials('385987');"
       />
+      <br />
       <input
         type="button"
         class="btn btn-primary"
-        value="test get Json"
-        onclick="javascript:obtainMetaData('9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_JAR5CV1B6ARV7NNY', '385987');"
+        value="385987"
+        onclick="javascript:fetchingCredentials(this.value);"
       />
       <input
         type="button"
         class="btn btn-primary"
-        value="get Content"
-        onclick="javascript:obtainContent('9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_JAR5CV1B6ARV7NNY', '385987');"
+        value="387061"
+        onclick="javascript:fetchingCredentials(this.value);"
       />
     </div>
-    <br />
-    <next-metadata></next-metadata>
-    <br />
-    <input
-      type="button"
-      class="btn btn-primary"
-      value="385987"
-      onclick="javascript:fetchingCredentials(this.value);"
-    />
-    <input
-      type="button"
-      class="btn btn-primary"
-      value="387061"
-      onclick="javascript:fetchingCredentials(this.value);"
-    />
     <br />
     <div class="row">
       <iframe class="nerds-iframe" id="iframeDoc" src=""></iframe>
