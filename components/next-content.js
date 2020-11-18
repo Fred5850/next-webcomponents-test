@@ -8,7 +8,7 @@ import {
   clickclick,
 } from "../data/nextAPI.js";
 
-class NextMetadata extends LitElement {
+class NextContent extends LitElement {
   /*   static get properties() {
     return {
       invoice: { type: String },
@@ -22,15 +22,12 @@ class NextMetadata extends LitElement {
 
   render() {
     return html`
-      <div id="nextMetadataDiv" style="border: 3px dotted rgb(0, 0, 255);">
-        <h2>next-metadata</h2>
-        <h5>${this.invoice}</h5>
-        <button @click="${obtainMetaData}">click me</button>
-
-        <table style="width: 15%" id="next-metadata"></table>
+      <div id="nextContentDiv" style="border: 3px dotted rgb(255, 0, 0);">
+        <h1>next-content</h1>
+        <iframe id="nextIframe" src=""></iframe>
         <p>----------------------</p>
       </div>
     `;
   }
 }
-customElements.define("next-metadata", NextMetadata);
+customElements.define("next-content", NextContent);

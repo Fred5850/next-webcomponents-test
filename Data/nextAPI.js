@@ -1,6 +1,8 @@
-function fetchingCredentials(invoiceId) {
-  var credentials = "";
-  fetch("http://localhost:8080/rest/authenticate", {
+var credentials = "";
+var invoiceId = "";
+
+function fetchingCredentials() {
+  return fetch("http://localhost:8080/rest/authenticate", {
     method: "get",
     headers: new Headers({
       Authorization: "Basic " + btoa("admin:admin"),
@@ -10,14 +12,13 @@ function fetchingCredentials(invoiceId) {
     .then((response) => response.json())
     .then((data) => {
       credentials = data.ticket;
-      console.log(data);
-      console.log("credentials : " + credentials);
-      obtainMetaData(credentials, invoiceId);
-      obtainContent(credentials, invoiceId);
+      //console.log("credentials : " + credentials);
+      //obtainMetaData(credentials, invoiceId);
+      //obtainContent(credentials, invoiceId);
     });
 }
 
-function obtainContent(credentials, invoiceId) {
+function obtainContent() {
   obtainItem(credentials, invoiceId).then((data) => {
     contents = data.result[0].contents;
     if (contents.length == 1) {
@@ -45,7 +46,7 @@ function obtainContent(credentials, invoiceId) {
   });
 }
 
-function obtainMetaData(credentials, invoiceId) {
+function obtainMetaData() {
   obtainItem(credentials, invoiceId).then((data) => {
     test = data.result[0].metadata;
     var table = document.getElementById("next-metadata");
@@ -58,7 +59,7 @@ function obtainMetaData(credentials, invoiceId) {
   });
 }
 
-function obtainItem(credentials, invoiceId) {
+function obtainItem() {
   var url =
     "http://localhost:8080/rest/list/1/items/YEL/0/10/InvoiceId/" + invoiceId;
 
@@ -70,7 +71,7 @@ function obtainItem(credentials, invoiceId) {
   }).then((response) => response.json());
 }
 
-function obtainSpecificContentRepresentation(value, credentials) {
+function obtainSpecificContentRepresentation(value) {
   url =
     "http://localhost:8080/rest/id/1/" +
     id +
@@ -94,3 +95,19 @@ function obtainSpecificContentRepresentation(value, credentials) {
     }
   });
 }
+function clickclick() {
+  console.log(invoiceId);
+  invoiceId = "35303";
+  console.log(invoiceId);
+}
+export {
+  invoiceId,
+  credentials,
+  doMagic,
+  fetchingCredentials,
+  obtainContent,
+  obtainMetaData,
+  obtainItem,
+  obtainSpecificContentRepresentation,
+  clickclick,
+};
