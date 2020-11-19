@@ -1,4 +1,13 @@
 import { LitElement, html } from "lit-element";
+import {
+  invoiceId,
+  credentials,
+  fetchingCredentials,
+  obtainContent,
+  obtainMetaData,
+  obtainItem,
+  obtainSpecificContentRepresentation,
+} from "../data/nextAPI.js";
 
 class MyElement extends LitElement {
   static get properties() {
@@ -11,8 +20,9 @@ class MyElement extends LitElement {
   }
   constructor() {
     super();
+    obtainContent();
     // Load the iframe data, updating the properties depending on the result and requesting a rerender of the component to apply the changes.
-    loadIframeData(theUrlYouPassIntoThatScreenshottedMethod)
+    /*    loadIframeData(theUrlYouPassIntoThatScreenshottedMethod)
       .then((url) => {
         this.iframeData.src = url;
         this.requestUpdate();
@@ -20,7 +30,7 @@ class MyElement extends LitElement {
       .catch(() => {
         this.iframeData.hasError = true;
         this.requestUpdate();
-      });
+      }); */
   }
   // Function loads the iframe data. The returned promise resolves with the requested URL if the request is successful and rejects if it's not.
   // This can be outside of this class of course!
@@ -38,13 +48,14 @@ class MyElement extends LitElement {
       });
     };
   } */
-
   render() {
     if (this.iframeData.hasError) {
       return html`<p>Error :(</p>`;
     }
 
-    return html` <iframe src="${this.iframeData.src}"></iframe> `;
+    return html` <div>
+      <iframe src="${this.iframeData.src}"></iframe>
+    </div>`;
   }
 }
 

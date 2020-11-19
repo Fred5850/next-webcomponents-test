@@ -17,11 +17,13 @@ GET http://nixtst01:15000/rest/id/1/urn:multiarchive:content:YEL:36965-36968
 Authorization: Next 9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_YMKV642K8C86Q4V3ZD40
 
 ### Uffe
-http://localhost:8080/rest/id/1/urn:multiarchive:content:YEL:520-523%231-1?cred=9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_RPF0FZ04RBA1DND2Q4&representation=preview
+http://localhost:8080/rest/id/1/urn:multiarchive:content:YEL:520-523%231-1?cred=9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_93VW9K270VNJE9DM2G&representation=preview
 
-###
-http://localhost:8080/rest/content/1/urn:multiarchive:content:YEL:36965-36968#1-1?cred=9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_RPF0FZ04RBA1DND2Q4
+### wrong
+http://localhost:8080/rest/content/1/urn:multiarchive:content:YEL:36965-36968#1-1?cred=9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_93VW9K270VNJE9DM2G
 
+### right with %231-1 instead of #1-1
+http://localhost:8080/rest/content/1/urn:multiarchive:content:YEL:36965-36968%231-1?cred=9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_93VW9K270VNJE9DM2G
 ### Content test
 
 GET http://localhost:8080/rest/id/1/urn:multiarchive:content:YEL:36965-36968#1-1?representation=fulltext

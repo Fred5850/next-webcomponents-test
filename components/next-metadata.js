@@ -5,7 +5,6 @@ import {
   obtainMetaData,
   obtainItem,
   obtainSpecificContentRepresentation,
-  clickclick,
 } from "../data/nextAPI.js";
 
 class NextMetadata extends LitElement {
@@ -23,12 +22,9 @@ class NextMetadata extends LitElement {
   render() {
     return html`
       <div id="nextMetadataDiv" style="border: 3px dotted rgb(0, 0, 255);">
-        <h2>next-metadata</h2>
-        <h5>${this.invoice}</h5>
         <button @click="${obtainMetaData}">click me</button>
 
         <table style="width: 15%" id="next-metadata"></table>
-        <p>----------------------</p>
       </div>
     `;
   }
