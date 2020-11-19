@@ -1,7 +1,5 @@
 import { LitElement, html } from "lit-element";
 import {
-  invoiceId,
-  credentials,
   fetchingCredentials,
   obtainContent,
   obtainMetaData,

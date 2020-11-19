@@ -5,7 +5,6 @@ import {
   obtainMetaData,
   obtainItem,
   obtainSpecificContentRepresentation,
-  invoiceId,
   doMagic,
 } from "../data/nextAPI.js";
 
