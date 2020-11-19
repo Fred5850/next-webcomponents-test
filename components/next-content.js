@@ -1,5 +1,7 @@
 import { LitElement, html } from "lit-element";
 import {
+  invoiceId,
+  credentials,
   fetchingCredentials,
   obtainContent,
   obtainMetaData,
@@ -9,12 +11,12 @@ import {
 } from "../data/nextAPI.js";
 
 class NextContent extends LitElement {
-  /*   static get properties() {
+  static get properties() {
     return {
       invoice: { type: String },
       credentials: { type: String },
     };
-  } */
+  }
 
   constructor() {
     super();

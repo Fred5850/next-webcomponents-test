@@ -1,8 +1,13 @@
 var credentials = "";
 var invoiceId = "";
 
+function doMagic() {
+  fetchingCredentials(); //this function give me credentials
+  console.log("credentials is " + credentials);
+}
+
 function fetchingCredentials() {
-  return fetch("http://localhost:8080/rest/authenticate", {
+  fetch("http://localhost:8080/rest/authenticate", {
     method: "get",
     headers: new Headers({
       Authorization: "Basic " + btoa("admin:admin"),
@@ -41,7 +46,7 @@ function obtainContent() {
         obtainSpecificContentRepresentation("original", credentials);
       }
     } else {
-      console.log("no content viable or more than 2 - error");
+      console.log("no content viable - error");
     }
   });
 }
