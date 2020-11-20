@@ -1,16 +1,12 @@
+var cred =
+  "9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_9R85PJG9GW65Z2JYJG79PS8";
 function doMagic() {
   //get credentials
   fetchingCredentials().then((result) => console.log(result)); //credentials
   //get url
-  obtainContent(
-    "9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_VV3Z7S4CXAWGZM9XRM",
-    "385987"
-  ).then((result) => console.log(result)); //logs "content url"
+  obtainContent(cred, "385987").then((result) => console.log(result)); //logs "content url"
   //get array of metadata
-  obtainMetaData(
-    "9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_VV3Z7S4CXAWGZM9XRM",
-    "385987"
-  ).then((result) => console.log(result));
+  obtainMetaData(cred, "385987").then((result) => console.log(result));
 }
 
 function fetchingCredentials() {

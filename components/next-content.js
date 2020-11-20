@@ -22,18 +22,20 @@ class NextContent extends LitElement {
     return {
       hasError: { Type: Boolean },
       src: { Type: String },
+      credentials: { Type: String },
+      invoiceId: { Type: String },
     };
   }
 
   constructor() {
     super();
     this.hasError = false;
+    this.credentials =
+      "9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_9R85PJG9GW65Z2JYJG79PS8";
+    this.invoiceId = "385987";
     this.src = "";
     // Load the iframe data, updating the properties depending on the result and requesting a rerender of the component to apply the changes.
-    obtainContent(
-      "9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_VV3Z7S4CXAWGZM9XRM",
-      "385987"
-    )
+    obtainContent(this.credentials, this.invoiceId)
       .then((result) => {
         this.src = result;
         this.requestUpdate();
@@ -49,7 +51,7 @@ class NextContent extends LitElement {
    */
   render() {
     if (this.hasError) {
-      return html`<p>Error :(</p>`;
+      return html`<p>Content Error :(</p>`;
     }
     return html` <div>
       <iframe class="nerds-iframe" src="${this.src}"></iframe>
