@@ -53,7 +53,7 @@ class NextContent extends LitElement {
 
   render() {
     if (this.hasError) {
-      return html`<p>Content Error :(</p>`;
+      return html`<p>Content Error</p>`;
     }
     return html` <div>
       ${this.iframeSources.map(
