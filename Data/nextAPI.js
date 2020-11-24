@@ -29,10 +29,10 @@ function obtainContent(credentials, invoiceId) {
   return obtainItem(credentials, invoiceId).then((data) => {
     var contents = data.result[0].contents;
     if (contents.length >= 1) {
-      //console.log(contents);
-      return contents.map((content) =>
+      const promises = contents.map((content) =>
         convertContentsToURL(content, credentials)
       );
+      return Promise.all(promises);
     } else {
       throw new genericError("no content viable - error");
     }

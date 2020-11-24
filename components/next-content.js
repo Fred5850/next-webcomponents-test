@@ -14,7 +14,7 @@ class NextContent extends LitElement {
   static get properties() {
     return {
       hasError: { Type: Boolean },
-      src: { Type: String },
+      src: { Type: Array },
       credentials: { Type: String },
       invoiceId: { Type: String },
     };
@@ -25,7 +25,7 @@ class NextContent extends LitElement {
     this.hasError = false;
     this.credentials = "";
     this.invoiceId = "";
-    this.src = "";
+    this.iframeSources = [];
   }
   attributeChangedCallback(name, oldval, newval) {
     super.attributeChangedCallback(name, oldval, newval);
@@ -40,8 +40,7 @@ class NextContent extends LitElement {
       this.credentials = result;
       obtainContent(this.credentials, this.invoiceId)
         .then((result) => {
-          console.log(result);
-          this.src = result;
+          this.iframeSources = result;
           this.hasError = false;
           this.requestUpdate();
         })
@@ -57,7 +56,9 @@ class NextContent extends LitElement {
       return html`<p>Content Error :(</p>`;
     }
     return html` <div>
-      <iframe class="nerds-iframe" src="${this.src}"></iframe>
+      ${this.iframeSources.map(
+        (src) => html`<iframe class="nerds-iframe" src="${src}"></iframe>`
+      )}
     </div>`;
   }
 }
