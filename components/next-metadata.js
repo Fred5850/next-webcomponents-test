@@ -1,13 +1,44 @@
-import { LitElement, html } from "lit-element";
-import {
-  fetchingCredentials,
-  obtainContent,
-  obtainMetaData,
-  obtainItem,
-  obtainSpecificContentRepresentation,
-} from "../data/nextAPI.js";
+import { LitElement, html, css } from "lit-element";
+import { fetchingCredentials, obtainMetaData } from "../data/nextAPI.js";
 
 class NextMetadata extends LitElement {
+  static get styles() {
+    return css`
+      .nextKey {
+        text-align: right;
+        vertical-align: top;
+        padding: 1px 0px;
+        width: 50%;
+        cursor: inherit !important;
+      }
+      .nextValue {
+        vertical-align: bottom;
+        width: 50%;
+        padding: 1px 0px;
+        padding-left: 10px;
+        cursor: inherit !important;
+      }
+      .nextTable {
+        margin: 5px 0px;
+        padding: 0px 10px;
+        width: 100%;
+        overflow: hidden;
+        cursor: default !important;
+      }
+      .nextMetadataDiv {
+        border: 3px dotted rgb(0, 0, 255);
+        height: auto;
+        width: auto;
+      }
+      table {
+        display: table;
+        border-collapse: separate;
+        box-sizing: border-box;
+        border-spacing: 2px;
+        border-color: grey;
+      }
+    `;
+  }
   static get properties() {
     return {
       hasError: { type: Boolean },
@@ -56,14 +87,13 @@ class NextMetadata extends LitElement {
       return html`<p>click on document to see metadata</p>`;
     }
     return html`
-      <div id="nextMetadataDiv" style="border: 3px dotted rgb(0, 0, 255);">
-        <p>MetaDataTabel</p>
-        <table style="width: 15%" id="next-metadata">
+      <div class="nextMetadataDiv">
+        <table class="nextTable">
           ${Array.from(this.metadata).map(
             (value) =>
               html`<tr>
-                <td>${value[0]}</td>
-                <td>${value[1]}</td>
+                <td class="nextKey">${value[0]}:</td>
+                <td class="nextValue">${value[1]}</td>
               </tr>`
           )}
         </table>

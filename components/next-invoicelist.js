@@ -1,5 +1,5 @@
 import { LitElement, html } from "lit-element";
-import { doMagic, changeAttributesForNextComponents } from "../data/nextAPI.js";
+import { changeAttributesForNextComponents } from "../data/nextAPI.js";
 
 class NextInvoiceList extends LitElement {
   static get properties() {
@@ -10,7 +10,7 @@ class NextInvoiceList extends LitElement {
 
   constructor() {
     super();
-    this.invoice = ["385987", "387061"];
+    this.invoice = ["141099", "385987", "387061", "384043", "384040", "384035"];
   }
 
   render() {
@@ -19,13 +19,13 @@ class NextInvoiceList extends LitElement {
         <table id="next-invoicelist">
           ${this.invoice.map(
             (i) =>
-              html`<tr>
-                <td>document: ${i}</td>
+              html` <tr>
+                <td>Invoice: ${i}</td>
                 <td>
                   <input
                     type="button"
-                    value=${i}
-                    @click="${changeAttributesForNextComponents})"
+                    value="see"
+                    @click=${() => changeAttributesForNextComponents(i)}
                   />
                 </td>
               </tr>`

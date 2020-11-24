@@ -1,5 +1,106 @@
-.nerds-iframe {
-  height: calc(100vh - 95px) !important;
-  width: 80% !important;
+
+next-content {
+  width: 75%;  
   float: left;
+}
+next-metadata {
+  width: 25%;
+  float: right;
+}
+
+/*
+.ms-general-properties-header {
+  padding: 4px 10px;
+}
+
+.ms-resource-icon {
+  background-repeat: no-repeat;
+  background-position: left;
+  padding: 16px 0px 0px 0px;
+}
+
+.ms-title {
+  margin-left: 40px;
+  padding-bottom: 16px;
+}
+
+.ms-property-float {
+  float: left;
+}
+
+.ms-property-panel {
+  padding: 5px 5px 5px 5px;
+}
+
+.ms-property-hint {
+  padding: 2px 5px;
+  background: #ffeeae;
+  border: 1px solid #e6c657;
+}
+
+.ms-property-content {
+  padding: 0px 5px;
+}
+
+.ms-property-header {
+  line-height: 100%;
+  padding: 20px 5px;
+  background-repeat: no-repeat !important;
+  background-position: left center;
+}
+
+.ms-property-body {
+  padding: 5px 0px;
+}
+
+.ms-property-body-details {
+  clear: both;
+  height: 30px;
+  vertical-align: bottom;
+}
+
+.ms-property-left {
+  text-align: left;
+}
+
+.ms-property-center {
+  text-align: center;
+}
+
+.ms-property-right {
+  text-align: right;
+}
+
+.ms-property-list {
+  margin: 5px 0px;
+  padding: 0px 10px;
+  width: 100%;
+  overflow: hidden;
+  cursor: default !important;
+}
+
+.ms-property-list-empty {
+  margin: 5px 0px;
+  cursor: default !important;
+  text-align: center;
+}
+
+.ms-property-list-key {
+  text-align: right;
+  vertical-align: top;
+  padding: 1px 0px;
+  width: 50%;
+  cursor: inherit !important;
+}
+
+.ms-property-list-value {
+  vertical-align: bottom;
+  width: 50%;
+  padding: 1px 0px;
+  padding-left: 10px;
+  cursor: inherit !important;
+}
+
+.ms-property-list-separator {
+  width: 10px;
 }

@@ -3,7 +3,7 @@ function doMagic() {
     "9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_SVC6WK3HP0DYH84MZCJ9R ";
   //get credentials
   fetchingCredentials().then((result) => console.log(result)); //credentials
-  //get url
+  //get array of url
   obtainContent(cred, "385987").then((result) => console.log(result)); //logs "content url"
   //get array of metadata
   obtainMetaData(cred, "385987").then((result) => console.log(result));
@@ -27,7 +27,13 @@ function fetchingCredentials() {
 function obtainContent(credentials, invoiceId) {
   return obtainItem(credentials, invoiceId).then((data) => {
     var contents = data.result[0].contents;
-    if (contents.length == 1) {
+    console.log(contents);
+    if (contents.length >= 1) {
+      for (var i = 0; i < contents.length; i++) {
+        //iterate through each content, find out if it should be
+        //preview or original, get the url, add it to the array,
+        //when done return arraylist with a url for each content.
+      }
       var id = contents[0].id; //urn:multiarchive:content:YEL:36965-36968#1-1
       var representations = contents[0].representations;
       var previewfound = false;
@@ -81,7 +87,6 @@ function obtainSpecificContentRepresentation(id, value, credentials) {
     value +
     "&cred=" +
     credentials;
-
   return fetch(url, {
     method: "get",
     headers: {
@@ -94,20 +99,15 @@ function obtainSpecificContentRepresentation(id, value, credentials) {
     return url;
   });
 }
-function changeAttributesForNextComponents() {
-  var invoiceId = "387061";
-  console.log(invoiceId);
+function changeAttributesForNextComponents(invoiceId) {
   var components = document.getElementsByClassName("nextComponent");
   for (var counter = 0; components[counter]; counter++) {
     components[counter].setAttribute("invoiceId", invoiceId);
   }
 }
 export {
-  doMagic,
   fetchingCredentials,
   obtainContent,
   obtainMetaData,
-  obtainItem,
-  obtainSpecificContentRepresentation,
   changeAttributesForNextComponents,
 };

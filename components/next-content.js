@@ -1,19 +1,12 @@
-import { LitElement, html } from "lit-element";
-import { css } from "lit-element";
-import {
-  fetchingCredentials,
-  obtainContent,
-  obtainMetaData,
-  obtainItem,
-  obtainSpecificContentRepresentation,
-} from "../data/nextAPI.js";
+import { LitElement, html, css } from "lit-element";
+import { fetchingCredentials, obtainContent } from "../data/nextAPI.js";
 
 class NextContent extends LitElement {
   static get styles() {
     return css`
       .nerds-iframe {
         height: calc(100vh - 95px) !important;
-        width: 45% !important;
+        width: 100% !important;
         float: left;
       }
     `;
@@ -47,6 +40,7 @@ class NextContent extends LitElement {
       this.credentials = result;
       obtainContent(this.credentials, this.invoiceId)
         .then((result) => {
+          //console.log(result);
           this.src = result;
           this.hasError = false;
           this.requestUpdate();
