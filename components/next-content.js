@@ -40,7 +40,7 @@ class NextContent extends LitElement {
       this.credentials = result;
       obtainContent(this.credentials, this.invoiceId)
         .then((result) => {
-          //console.log(result);
+          console.log(result);
           this.src = result;
           this.hasError = false;
           this.requestUpdate();
@@ -51,10 +51,7 @@ class NextContent extends LitElement {
         });
     });
   }
-  // Function loads the iframe data. The returned promise resolves with the requested URL if the request is successful and rejects if it's not.
-  // This can be outside of this class of course!
-  /* inside render() method
-   */
+
   render() {
     if (this.hasError) {
       return html`<p>Content Error :(</p>`;

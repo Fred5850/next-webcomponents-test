@@ -1,12 +1,12 @@
 function doMagic() {
   var cred =
-    "9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_SVC6WK3HP0DYH84MZCJ9R ";
+    "9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_AXZ71XTQ98938R3YBXA0 ";
   //get credentials
-  fetchingCredentials().then((result) => console.log(result)); //credentials
+  //fetchingCredentials().then((result) => console.log(result)); //credentials
   //get array of url
-  obtainContent(cred, "385987").then((result) => console.log(result)); //logs "content url"
+  obtainContent(cred, "141099").then((result) => console.log(result)); //logs "content url"
   //get array of metadata
-  obtainMetaData(cred, "385987").then((result) => console.log(result));
+  //obtainMetaData(cred, "385987").then((result) => console.log(result));
 }
 
 function fetchingCredentials() {
@@ -24,38 +24,33 @@ function fetchingCredentials() {
     });
 }
 
+//returns an url
 function obtainContent(credentials, invoiceId) {
   return obtainItem(credentials, invoiceId).then((data) => {
     var contents = data.result[0].contents;
-    console.log(contents);
     if (contents.length >= 1) {
-      for (var i = 0; i < contents.length; i++) {
-        //iterate through each content, find out if it should be
-        //preview or original, get the url, add it to the array,
-        //when done return arraylist with a url for each content.
-      }
-      var id = contents[0].id; //urn:multiarchive:content:YEL:36965-36968#1-1
-      var representations = contents[0].representations;
-      var previewfound = false;
-      representations.forEach((obj) => {
-        Object.entries(obj).forEach(([key, value]) => {
-          if ("preview" == `${value}`) {
-            previewfound = true;
-            return;
-          }
-        });
-      });
-      if (previewfound) {
-        return obtainSpecificContentRepresentation(id, "preview", credentials);
-      } else {
-        return obtainSpecificContentRepresentation(id, "original", credentials);
-      }
+      //console.log(contents);
+      return contents.map((content) =>
+        convertContentsToURL(content, credentials)
+      );
     } else {
       throw new genericError("no content viable - error");
     }
   });
 }
 
+function convertContentsToURL(content, credentials) {
+  const hasPreview = content.representations.some((representation) => {
+    return Object.values(representation).some(
+      (value) => value.toString() === "preview"
+    );
+  });
+  if (hasPreview) {
+    return obtainContentUrl(content.id, "preview", credentials);
+  } else {
+    return obtainContentUrl(content.id, "original", credentials);
+  }
+}
 function obtainMetaData(credentials, invoiceId) {
   return obtainItem(credentials, invoiceId).then((data) => {
     var metadataList = data.result[0].metadata;
@@ -79,7 +74,7 @@ function obtainItem(credentials, invoiceId) {
   }).then((response) => response.json());
 }
 // returns a url for a content
-function obtainSpecificContentRepresentation(id, value, credentials) {
+function obtainContentUrl(id, value, credentials) {
   var url =
     "http://localhost:8080/rest/id/1/" +
     id +
@@ -100,6 +95,7 @@ function obtainSpecificContentRepresentation(id, value, credentials) {
   });
 }
 function changeAttributesForNextComponents(invoiceId) {
+  //doMagic();
   var components = document.getElementsByClassName("nextComponent");
   for (var counter = 0; components[counter]; counter++) {
     components[counter].setAttribute("invoiceId", invoiceId);

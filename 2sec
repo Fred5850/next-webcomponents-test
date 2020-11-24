@@ -1,0 +1,59 @@
+function obtainContent(credentials, invoiceId) {
+  return obtainItem(credentials, invoiceId).then((data) => {
+    var contents = data.result[0].contents;
+    //console.log(contents);
+    if (contents.length >= 1) {
+      //iterate through each content, find out if it should be
+      //preview or original, get the url, add it to the array,
+      //when done return arraylist with a url for each content.
+      let urlArray;
+      for (var i = 0; i < contents.length; i++) {
+        var id = contents[i].id; //urn:multiarchive:content:YEL:36965-36968#1-1
+        var representations = contents[i].representations;
+        var previewfound = false;
+        representations.forEach((obj) => {
+          Object.entries(obj).forEach(([key, value]) => {
+            if ("preview" == `${value}`) {
+              previewfound = true;
+              return;
+            }
+          });
+        });
+        if (previewfound) {
+          return obtainContentUrl(id, "preview", credentials);
+        } else {
+          return obtainContentUrl(id, "original", credentials);
+        }
+      }
+      //return urlArray;
+    } else {
+      throw new genericError("no content viable - error");
+    }
+  });
+}
+--------------------------------ONE CONTENT------------------------------------------
+function obtainContent(credentials, invoiceId) {
+  return obtainItem(credentials, invoiceId).then((data) => {
+    var contents = data.result[0].contents;
+    if (contents.length >= 1) {
+      var id = contents[i].id; //urn:multiarchive:content:YEL:36965-36968#1-1
+      var representations = contents[i].representations;
+      var previewfound = false;
+      representations.forEach((obj) => {
+        Object.entries(obj).forEach(([key, value]) => {
+          if ("preview" == `${value}`) {
+            previewfound = true;
+            return;
+          }
+        });
+      });
+      if (previewfound) {
+        return obtainContentUrl(id, "preview", credentials); //return url in promise
+      } else {
+        return obtainContentUrl(id, "original", credentials); //return url in promise
+      }
+    } else {
+      throw new genericError("no content viable - error");
+    }
+  });
+}
