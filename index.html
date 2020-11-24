@@ -11,30 +11,8 @@
   <body>
     <div id="components">
       <!--<my-element></my-element>-->
-      <next-content></next-content>
-      <next-metadata></next-metadata>
       <next-invoicelist></next-invoicelist>
-    
-    </div id="demo">
-    <div id="buttons">
-      <input
-        type="button"
-        class="btn btn-primary"
-        value="385987"
-        onclick="javascript:fetchingCredentials(this.value);"
-      />
-      <input
-        type="button"
-        class="btn btn-primary"
-        value="387061"
-        onclick="javascript:fetchingCredentials(this.value);"
-      />
-    </div>
-    <br />
-    <div class="row">
-      <iframe class="nerds-iframe" id="iframeDoc" src=""></iframe>
-
-      <table style="width: 15%" id="metadata"></table>
-    </div>
+      <next-content class="nextComponent" invoiceId=""></next-content>
+      <next-metadata class="nextComponent" invoiceId=""></next-metadata>
   </body>
 </html>

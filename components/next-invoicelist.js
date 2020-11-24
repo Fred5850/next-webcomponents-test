@@ -1,12 +1,5 @@
 import { LitElement, html } from "lit-element";
-import {
-  fetchingCredentials,
-  obtainContent,
-  obtainMetaData,
-  obtainItem,
-  obtainSpecificContentRepresentation,
-  doMagic,
-} from "../data/nextAPI.js";
+import { doMagic, changeAttributesForNextComponents } from "../data/nextAPI.js";
 
 class NextInvoiceList extends LitElement {
   static get properties() {
@@ -27,12 +20,13 @@ class NextInvoiceList extends LitElement {
           ${this.invoice.map(
             (i) =>
               html`<tr>
-                <td>${i}</td>
+                <td>document: ${i}</td>
                 <td>
-                  <input type="button" value="clicktest" />
-                </td>
-                <td>
-                  <input type="button" value="show data" @click="${doMagic}" />
+                  <input
+                    type="button"
+                    value=${i}
+                    @click="${changeAttributesForNextComponents})"
+                  />
                 </td>
               </tr>`
           )}

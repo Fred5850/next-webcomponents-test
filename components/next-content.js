@@ -30,20 +30,32 @@ class NextContent extends LitElement {
   constructor() {
     super();
     this.hasError = false;
-    this.credentials =
-      "9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_9R85PJG9GW65Z2JYJG79PS8";
-    this.invoiceId = "385987";
+    this.credentials = "";
+    this.invoiceId = "";
     this.src = "";
-    // Load the iframe data, updating the properties depending on the result and requesting a rerender of the component to apply the changes.
-    obtainContent(this.credentials, this.invoiceId)
-      .then((result) => {
-        this.src = result;
-        this.requestUpdate();
-      })
-      .catch(() => {
-        this.hasError = true;
-        this.requestUpdate();
-      });
+  }
+  attributeChangedCallback(name, oldval, newval) {
+    super.attributeChangedCallback(name, oldval, newval);
+    this.changeContent();
+  }
+
+  changeContent() {
+    if (this.invoiceId == "") {
+      return;
+    }
+    fetchingCredentials().then((result) => {
+      this.credentials = result;
+      obtainContent(this.credentials, this.invoiceId)
+        .then((result) => {
+          this.src = result;
+          this.hasError = false;
+          this.requestUpdate();
+        })
+        .catch(() => {
+          this.hasError = true;
+          this.requestUpdate();
+        });
+    });
   }
   // Function loads the iframe data. The returned promise resolves with the requested URL if the request is successful and rejects if it's not.
   // This can be outside of this class of course!

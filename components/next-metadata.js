@@ -20,26 +20,40 @@ class NextMetadata extends LitElement {
   constructor() {
     super();
     this.hasError = false;
-    this.credentials =
-      "9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_9R85PJG9GW65Z2JYJG79PS8";
-    this.invoiceId = "385987";
+    this.credentials = "";
+    this.invoiceId = "";
     this.metadata = [[]];
-    obtainMetaData(this.credentials, this.invoiceId)
-      .then((result) => {
-        console.log(result);
-        this.metadata = result;
-        this.requestUpdate();
-      })
-      .catch(() => {
-        this.hasError = true;
-        this.requestUpdate();
-      });
+  }
+  attributeChangedCallback(name, oldval, newval) {
+    super.attributeChangedCallback(name, oldval, newval);
+    this.changeMetaData();
   }
 
+  changeMetaData() {
+    if (this.invoiceId == "") {
+      return;
+    }
+    fetchingCredentials().then((result) => {
+      this.credentials = result;
+      obtainMetaData(this.credentials, this.invoiceId)
+        .then((result) => {
+          this.metadata = result;
+          this.hasError = false;
+          this.requestUpdate();
+        })
+        .catch(() => {
+          this.hasError = true;
+          this.requestUpdate();
+        });
+    });
+  }
   //<button @click="${obtainMetaData}">click me</button>
   render() {
     if (this.hasError) {
       return html`<p>Metadata Error :(</p>`;
+    }
+    if (this.invoiceId == "") {
+      return html`<p>click on document to see metadata</p>`;
     }
     return html`
       <div id="nextMetadataDiv" style="border: 3px dotted rgb(0, 0, 255);">

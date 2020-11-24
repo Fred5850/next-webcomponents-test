@@ -1,6 +1,6 @@
-var cred =
-  "9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_9R85PJG9GW65Z2JYJG79PS8";
 function doMagic() {
+  var cred =
+    "9S2NGN2ZENS6WEKDENP78TB1E9HPGTBPCMX7AWV5E8X42H2D9570_SVC6WK3HP0DYH84MZCJ9R ";
   //get credentials
   fetchingCredentials().then((result) => console.log(result)); //credentials
   //get url
@@ -94,7 +94,14 @@ function obtainSpecificContentRepresentation(id, value, credentials) {
     return url;
   });
 }
-
+function changeAttributesForNextComponents() {
+  var invoiceId = "387061";
+  console.log(invoiceId);
+  var components = document.getElementsByClassName("nextComponent");
+  for (var counter = 0; components[counter]; counter++) {
+    components[counter].setAttribute("invoiceId", invoiceId);
+  }
+}
 export {
   doMagic,
   fetchingCredentials,
@@ -102,4 +109,5 @@ export {
   obtainMetaData,
   obtainItem,
   obtainSpecificContentRepresentation,
+  changeAttributesForNextComponents,
 };
