@@ -14,7 +14,7 @@ class NextContent extends LitElement {
   static get properties() {
     return {
       hasError: { Type: Boolean },
-      src: { Type: Array },
+      iframeSources: { Type: Array },
       credentials: { Type: String },
       invoiceId: { Type: String },
     };
@@ -40,6 +40,7 @@ class NextContent extends LitElement {
       this.credentials = result;
       obtainContent(this.credentials, this.invoiceId)
         .then((result) => {
+          console.log(result);
           this.iframeSources = result;
           this.hasError = false;
           this.requestUpdate();
@@ -50,14 +51,14 @@ class NextContent extends LitElement {
         });
     });
   }
-
   render() {
     if (this.hasError) {
       return html`<p>Content Error</p>`;
     }
     return html` <div>
       ${this.iframeSources.map(
-        (src) => html`<iframe class="nerds-iframe" src="${src}"></iframe>`
+        (src) => html`<p>${src.name}</p>
+          <iframe class="nerds-iframe" src="${src.url}"></iframe>`
       )}
     </div>`;
   }

@@ -29,9 +29,12 @@ function obtainContent(credentials, invoiceId) {
   return obtainItem(credentials, invoiceId).then((data) => {
     var contents = data.result[0].contents;
     if (contents.length >= 1) {
-      const promises = contents.map((content) =>
-        convertContentsToURL(content, credentials)
-      );
+      const promises = contents.map((content) => {
+        return {
+          url: convertContentsToURL(content, credentials),
+          name: convertContentsToName(content, credentials),
+        };
+      });
       return Promise.all(promises);
     } else {
       throw new genericError("no content viable - error");
@@ -39,6 +42,9 @@ function obtainContent(credentials, invoiceId) {
   });
 }
 
+function convertContentsToName(content, credentials) {
+  return "fisk";
+}
 function convertContentsToURL(content, credentials) {
   const hasPreview = content.representations.some((representation) => {
     return Object.values(representation).some(
@@ -75,24 +81,14 @@ function obtainItem(credentials, invoiceId) {
 }
 // returns a url for a content
 function obtainContentUrl(id, value, credentials) {
-  var url =
+  return (
     "http://localhost:8080/rest/id/1/" +
     id +
     "?representation=" +
     value +
     "&cred=" +
-    credentials;
-  return fetch(url, {
-    method: "get",
-    headers: {
-      Authorization: "Next " + credentials,
-    },
-  }).then((response) => {
-    if (response.status !== 200) {
-      throw new genericError("Response status is not 200, Error");
-    }
-    return url;
-  });
+    credentials
+  );
 }
 function changeAttributesForNextComponents(invoiceId) {
   //doMagic();
