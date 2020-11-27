@@ -8,7 +8,6 @@ function doMagic() {
   //get array of metadata
   //obtainMetaData(cred, "385987").then((result) => console.log(result));
 }
-
 function fetchingCredentials() {
   return fetch("http://localhost:8080/rest/authenticate", {
     method: "get",
@@ -23,7 +22,6 @@ function fetchingCredentials() {
       return credentials;
     });
 }
-
 //returns an url
 function obtainContent(credentials, invoiceId) {
   return obtainItem(credentials, invoiceId).then((data) => {
@@ -32,7 +30,7 @@ function obtainContent(credentials, invoiceId) {
       const promises = contents.map((content) => {
         return {
           url: convertContentsToURL(content, credentials),
-          name: convertContentsToName(content, credentials),
+          name: convertContentsToName(content),
         };
       });
       return Promise.all(promises);
@@ -41,9 +39,8 @@ function obtainContent(credentials, invoiceId) {
     }
   });
 }
-
-function convertContentsToName(content, credentials) {
-  return "fisk";
+function convertContentsToName(content) {
+  return content.name;
 }
 function convertContentsToURL(content, credentials) {
   const hasPreview = content.representations.some((representation) => {
@@ -81,9 +78,12 @@ function obtainItem(credentials, invoiceId) {
 }
 // returns a url for a content
 function obtainContentUrl(id, value, credentials) {
+  var myRe = new RegExp("(.*)(?:#.*)");
+  var trimId = myRe.exec(id)[1];
+
   return (
     "http://localhost:8080/rest/id/1/" +
-    id +
+    trimId +
     "?representation=" +
     value +
     "&cred=" +
@@ -97,6 +97,7 @@ function changeAttributesForNextComponents(invoiceId) {
     components[counter].setAttribute("invoiceId", invoiceId);
   }
 }
+
 export {
   fetchingCredentials,
   obtainContent,
