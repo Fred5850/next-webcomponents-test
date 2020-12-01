@@ -94,6 +94,10 @@ class NextContent extends LitElement {
     if (this.hasError) {
       return html`<p>Content Error</p>`;
     }
+    //if no invoice
+    if (this.invoiceId == "") {
+      return html`<p>click on document to see content</p>`;
+    }
     // render this, if only 1 src
     if (this.iframeSources.length == 1) {
       return html` <div id="nextcomponent-content-iframe">
