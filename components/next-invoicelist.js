@@ -27,6 +27,8 @@ class NextInvoiceList extends LitElement {
       this.credentials = result;
       deleteItem(invoiceId, this.credentials).then((result) => {
         if (200 == result) {
+          //update list if item is deleted
+          changeAttributesForNextComponents("");
           this.obtainInvoices();
         }
       });

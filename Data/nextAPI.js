@@ -147,7 +147,6 @@ function deleteItem(invoiceId, credentials) {
         console.log(response.status + " : " + response.statusText);
         return response.status;
       }
-      changeAttributesForNextComponents("");
       return response.status;
     });
   });
