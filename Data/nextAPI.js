@@ -86,8 +86,8 @@ function obtainItem(credentials, invoiceId) {
  *  trims and url and returns the correct formatted url for a content
  */
 function obtainContentUrl(id, value, credentials) {
-  var myRe = new RegExp("(.*)(?:#.*)");
-  var trimId = myRe.exec(id)[1];
+  var regex = new RegExp("(.*)(?:#.*)");
+  var trimId = regex.exec(id)[1];
 
   return (
     "http://localhost:8080/rest/id/1/" +

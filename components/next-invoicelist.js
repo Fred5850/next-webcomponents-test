@@ -22,18 +22,7 @@ class NextInvoiceList extends LitElement {
     this.credentials = "";
     this.obtainInvoices();
   }
-  deleteStuff(invoiceId) {
-    fetchingCredentials().then((result) => {
-      this.credentials = result;
-      deleteItem(invoiceId, this.credentials).then((result) => {
-        if (200 == result) {
-          //update list if item is deleted
-          changeAttributesForNextComponents("");
-          this.obtainInvoices();
-        }
-      });
-    });
-  }
+
   obtainInvoices() {
     fetchingCredentials().then((result) => {
       this.credentials = result;
@@ -73,13 +62,6 @@ class NextInvoiceList extends LitElement {
                     type="button"
                     value="see"
                     @click=${() => changeAttributesForNextComponents(i)}
-                  />
-                </td>
-                <td>
-                  <input
-                    type="button"
-                    value="delete"
-                    @click=${() => this.deleteStuff(i)}
                   />
                 </td>
               </tr>`

@@ -140,16 +140,4 @@ class NextContent extends LitElement {
     </div>`;
   }
 }
-/*
-     ${this.iframeSources.map(
-          (src, index) =>
-            html`
-              <iframe
-                class="nerds-iframe ${index !== 0 ? "x-hide-display" : ""}"
-                id="${src.name}"
-                src="${src.url}"
-              ></iframe>
-            `
-        )}
-*/
 customElements.define("next-content", NextContent);
