@@ -23,6 +23,16 @@ class NextInvoiceList extends LitElement {
     this.obtainInvoices();
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener("updateComponents", () => this.obtainInvoices());
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener("InvoiceClicked");
+    super.disconnectedCallback();
+  }
+
   obtainInvoices() {
     fetchingCredentials().then((result) => {
       this.credentials = result;
