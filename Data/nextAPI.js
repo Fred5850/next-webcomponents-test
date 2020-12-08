@@ -176,6 +176,14 @@ function changeAttributesForNextComponents(invoiceId) {
   for (var counter = 0; components[counter]; counter++) {
     components[counter].setAttribute("invoiceId", invoiceId);
   }
+
+  window.dispatchEvent(
+    new CustomEvent("InvoiceClicked", {
+      detail: {
+        invoiceId: invoiceId,
+      },
+    })
+  );
 }
 
 /*

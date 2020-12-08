@@ -46,9 +46,23 @@ class NextContent extends LitElement {
     this.iframeSources = [];
   }
 
-  attributeChangedCallback(name, oldval, newval) {
-    super.attributeChangedCallback(name, oldval, newval);
+  InvoiceClickedEventHandler(e) {
+    this.invoiceId = e.detail.invoiceId;
     this.changeContent();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener("InvoiceClicked", (e) =>
+      this.InvoiceClickedEventHandler(e)
+    );
+    window.addEventListener("updateComponents", (e) => this.changeContent());
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener("InvoiceClicked");
+    window.removeEventListener("updateComponents");
+    super.disconnectedCallback();
   }
 
   changeContent() {

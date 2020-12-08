@@ -55,9 +55,23 @@ class NextMetadata extends LitElement {
     this.invoiceId = "";
     this.metadata = [[]];
   }
-  attributeChangedCallback(name, oldval, newval) {
-    super.attributeChangedCallback(name, oldval, newval);
+  InvoiceClickedEventHandler(e) {
+    this.invoiceId = e.detail.invoiceId;
     this.changeMetaData();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener("InvoiceClicked", (e) =>
+      this.InvoiceClickedEventHandler(e)
+    );
+    window.addEventListener("updateComponents", (e) => this.changeMetaData());
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener("InvoiceClicked");
+    window.removeEventListener("updateComponents");
+    super.disconnectedCallback();
   }
 
   changeMetaData() {

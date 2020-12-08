@@ -20,9 +20,21 @@ class NextDeleteBtn extends LitElement {
     this.credentials = "";
   }
 
-  attributeChangedCallback(name, oldval, newval) {
-    super.attributeChangedCallback(name, oldval, newval);
+  InvoiceClickedEventHandler(e) {
+    this.invoiceId = e.detail.invoiceId;
     this.requestUpdate();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener("InvoiceClicked", (e) =>
+      this.InvoiceClickedEventHandler(e)
+    );
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener("InvoiceClicked");
+    super.disconnectedCallback();
   }
 
   deleteStuff(invoiceId) {
@@ -33,11 +45,19 @@ class NextDeleteBtn extends LitElement {
           this.hasError = false;
           //update list if item is deleted
           //send out event
-          console.log("deleted " + invoiceId + " success");
+          window.dispatchEvent(
+            new CustomEvent("updateComponents", {
+              detail: {
+                invoiceId: invoiceId,
+                update: true,
+              },
+            })
+          );
+          console.log("-deleted " + invoiceId + " success");
           return;
         }
         this.hasError = true;
-        console.log("cant delete " + invoiceId + ". ErrorMessage: " + result);
+        console.log("-cant delete " + invoiceId + ". ErrorMessage: " + result);
       });
     });
   }
