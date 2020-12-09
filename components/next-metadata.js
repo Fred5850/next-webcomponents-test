@@ -92,10 +92,9 @@ class NextMetadata extends LitElement {
         });
     });
   }
-  //<button @click="${obtainMetaData}">click me</button>
   render() {
     if (this.hasError) {
-      return html`<p>Metadata Error :(</p>`;
+      return html`<p>Couldn't receive metadata from Invoice</p>`;
     }
     if (this.invoiceId == "") {
       return html`<p>click on document to see metadata</p>`;

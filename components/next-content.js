@@ -106,7 +106,7 @@ class NextContent extends LitElement {
   render() {
     //render this, if error
     if (this.hasError) {
-      return html`<p>Content Error</p>`;
+      return html`<p>Couldn't receive content from Invoice</p>`;
     }
     //if no invoice
     if (this.invoiceId == "") {
