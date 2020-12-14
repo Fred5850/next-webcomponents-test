@@ -16,7 +16,7 @@ class NextInvoiceList extends LitElement {
 
   constructor() {
     super();
-    this.invoice = [];
+    this.invoices = [];
     this.hasError = false;
     this.credentials = "";
     this.obtainInvoices();
@@ -37,7 +37,7 @@ class NextInvoiceList extends LitElement {
       this.credentials = result;
       obtainInvoiceList(this.credentials, 10)
         .then((result) => {
-          this.invoice = result;
+          this.invoices = result;
           this.hasError = false;
           this.requestUpdate();
         })
@@ -61,7 +61,7 @@ class NextInvoiceList extends LitElement {
             value="see invoice with 2 documents"
             @click=${() => sendInvoiceIdEvent(141099)}
           />
-          ${this.invoice.map(
+          ${this.invoices.map(
             (i) =>
               html` <tr>
                 <td>Invoice: ${i}</td>

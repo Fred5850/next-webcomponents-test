@@ -36,8 +36,6 @@ class NextDeleteBtn extends LitElement {
       this.credentials = result;
       deleteItem(invoiceId, this.credentials).then((result) => {
         if (200 == result) {
-          //update list if item is deleted
-          //send out event
           window.dispatchEvent(
             new CustomEvent("updateComponents", {
               detail: {
@@ -57,7 +55,7 @@ class NextDeleteBtn extends LitElement {
 
   render() {
     return html`
-      <div id="nextdeleteBtnDiv" style="border: 3px dotted rgb(255, 0, 0);">
+      <div id="nextdeleteBtnDiv">
         <input
           type="button"
           value="delete"
