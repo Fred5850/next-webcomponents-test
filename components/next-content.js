@@ -4,7 +4,7 @@ import { fetchingCredentials, obtainContent } from "../data/nextAPI.js";
 class NextContent extends LitElement {
   static get styles() {
     return css`
-      .nerds-iframe {
+      .iframe-style {
         height: calc(100vh - 95px) !important;
         width: 100% !important;
         float: left;
@@ -85,22 +85,12 @@ class NextContent extends LitElement {
   }
 
   hideAndShowContent(id) {
-    const contentDiv = this.shadowRoot.getElementById(
-      "nextcomponent-content-iframes"
-    );
-    var content = Array.from(contentDiv.children);
-
-    content.forEach((element) => {
-      if (element.id == id) {
-        if (element.classList.contains("x-hide-display")) {
-          element.classList.remove("x-hide-display");
-        }
-      } else {
-        if (!element.classList.contains("x-hide-display")) {
-          element.classList.add("x-hide-display");
-        }
-      }
-    });
+    this.shadowRoot
+      .querySelectorAll("#nextcomponent-content-iframes > *")
+      .forEach((element) => {
+        const operation = element.id === id ? "remove" : "add";
+        element.classList[operation]("x-hide-display");
+      });
   }
 
   render() {
@@ -108,22 +98,22 @@ class NextContent extends LitElement {
     if (this.hasError) {
       return html`<p>Couldn't receive content from Invoice</p>`;
     }
-    //if no invoice
+    //if no invoice (Default)
     if (this.invoiceId == "") {
       return html`<p>click on document to see content</p>`;
     }
     // render this, if only 1 src
     if (this.iframeSources.length == 1) {
-      return html` <div id="nextcomponent-content-iframe">
+      return html`
         <div id="nextcomponent-content-iframe">
           ${this.iframeSources.map(
             (src) => html`<p>only one content: ${src.name}</p>
-              <iframe class="nerds-iframe" src="${src.url}"></iframe>`
+              <iframe class="iframe-style" src="${src.url}"></iframe>`
           )}
         </div>
-      </div>`;
+      `;
     }
-    //else render this
+    //render this if there is more than 1 content
     return html` <div id="nextcomponent-content">
       <div class="nextcomponent-content-tabs">
         ${this.iframeSources.map(
@@ -144,7 +134,7 @@ class NextContent extends LitElement {
           (src, index) =>
             html`
               <iframe
-                class="nerds-iframe ${index !== 0 ? "x-hide-display" : ""}"
+                class="iframe-style${index !== 0 ? " x-hide-display" : ""}"
                 id="${src.name}"
                 src="${src.url}"
               ></iframe>

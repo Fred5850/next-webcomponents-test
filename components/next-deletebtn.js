@@ -1,13 +1,8 @@
 import { LitElement, html } from "lit-element";
-import {
-  changeAttributesForNextComponents,
-  fetchingCredentials,
-  deleteItem,
-} from "../data/nextAPI.js";
+import { fetchingCredentials, deleteItem } from "../data/nextAPI.js";
 class NextDeleteBtn extends LitElement {
   static get properties() {
     return {
-      hasError: { Type: Boolean },
       invoiceId: { type: String },
       credentials: { type: String },
     };
@@ -16,7 +11,6 @@ class NextDeleteBtn extends LitElement {
   constructor() {
     super();
     this.invoiceId = "";
-    this.hasError = false;
     this.credentials = "";
   }
 
@@ -42,7 +36,6 @@ class NextDeleteBtn extends LitElement {
       this.credentials = result;
       deleteItem(invoiceId, this.credentials).then((result) => {
         if (200 == result) {
-          this.hasError = false;
           //update list if item is deleted
           //send out event
           window.dispatchEvent(
@@ -53,11 +46,11 @@ class NextDeleteBtn extends LitElement {
               },
             })
           );
-          console.log("-deleted " + invoiceId + " success");
           return;
         }
-        this.hasError = true;
-        console.log("-cant delete " + invoiceId + ". ErrorMessage: " + result);
+        console.error(
+          "-cant delete " + invoiceId + ". ErrorMessage: " + result
+        );
       });
     });
   }

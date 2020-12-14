@@ -1,11 +1,15 @@
+const CompanyUrl = "http://localhost:8080";
+const username = "admin";
+const password = "admin";
+
 /*
  * Fetching Next credentials, for use in other functions
  */
 function fetchingCredentials() {
-  return fetch("http://localhost:8080/rest/authenticate", {
+  return fetch(CompanyUrl + "/rest/authenticate", {
     method: "get",
     headers: new Headers({
-      Authorization: "Basic " + btoa("admin:admin"),
+      Authorization: "Basic " + btoa(username + ":" + password),
       "Content-Type": "application/json",
     }),
   })
@@ -72,8 +76,7 @@ function obtainMetaData(credentials, invoiceId) {
  *  Return an json object (next Item) with help of Credentials and Invoice ID
  */
 function obtainItem(credentials, invoiceId) {
-  var url =
-    "http://localhost:8080/rest/list/1/items/YEL/0/10/InvoiceId/" + invoiceId;
+  var url = CompanyUrl + "/rest/list/1/items/YEL/0/10/InvoiceId/" + invoiceId;
 
   return fetch(url, {
     method: "get",
@@ -90,7 +93,8 @@ function obtainContentUrl(id, value, credentials) {
   var trimId = regex.exec(id)[1];
 
   return (
-    "http://localhost:8080/rest/id/1/" +
+    CompanyUrl +
+    "/rest/id/1/" +
     trimId +
     "?representation=" +
     value +
@@ -102,11 +106,8 @@ function obtainContentUrl(id, value, credentials) {
  * service for obtainInvoiceList, returns a json object containing 10 items
  */
 function obtainItemList(credentials, max) {
-  //fix later?
   var url =
-    "http://localhost:8080/rest/list/1/items/YEL/0/" +
-    max +
-    "?sort=-$InvoiceId:long";
+    CompanyUrl + "/rest/list/1/items/YEL/0/" + max + "?sort=-$InvoiceId:long";
   return fetch(url, {
     method: "get",
     headers: {
@@ -121,16 +122,16 @@ function obtainInvoiceList(credentials, max) {
   return obtainItemList(credentials, max).then((data) => {
     var metadataList;
     var newResult = data.result;
-    let invoiceMap = new Array();
+    let invoiceArray = new Array();
     Array.from(newResult).map((value, index) => {
       metadataList = value.metadata;
       metadataList.forEach((obj) => {
         if ("InvoiceId" == obj.name) {
-          invoiceMap.push(obj.value);
+          invoiceArray.push(obj.value);
         }
       });
     });
-    return invoiceMap;
+    return invoiceArray;
   });
 }
 /*
@@ -144,7 +145,7 @@ function deleteItem(invoiceId, credentials) {
     var urn = result.result[0].id;
     return deleteRequest(urn, credentials).then((response) => {
       if (response.status != 200) {
-        console.log(response.status + " : " + response.statusText);
+        console.error(response.status + " : " + response.statusText);
         return response.status;
       }
       return response.status;
@@ -156,7 +157,7 @@ function deleteItem(invoiceId, credentials) {
  */
 function deleteRequest(urn, credentials) {
   var newUrn = urn.replace("#", "%23");
-  var url = "http://localhost:8080/rest/id/latest/" + newUrn;
+  var url = CompanyUrl + "/rest/id/latest/" + newUrn;
 
   return fetch(url, {
     method: "delete",
@@ -171,12 +172,7 @@ function deleteRequest(urn, credentials) {
 /*
  * Loobs through all NextComponents and changes the "invoiceId"
  */
-function changeAttributesForNextComponents(invoiceId) {
-  var components = document.getElementsByClassName("nextComponent");
-  for (var counter = 0; components[counter]; counter++) {
-    components[counter].setAttribute("invoiceId", invoiceId);
-  }
-
+function sendInvoiceIdEvent(invoiceId) {
   window.dispatchEvent(
     new CustomEvent("InvoiceClicked", {
       detail: {
@@ -193,7 +189,7 @@ export {
   fetchingCredentials,
   obtainContent,
   obtainMetaData,
-  changeAttributesForNextComponents,
+  sendInvoiceIdEvent,
   obtainInvoiceList,
   deleteItem,
 };

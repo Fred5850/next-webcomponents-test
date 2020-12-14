@@ -1,9 +1,8 @@
 import { LitElement, html } from "lit-element";
 import {
-  changeAttributesForNextComponents,
+  sendInvoiceIdEvent,
   fetchingCredentials,
   obtainInvoiceList,
-  deleteItem,
 } from "../data/nextAPI.js";
 
 class NextInvoiceList extends LitElement {
@@ -32,7 +31,7 @@ class NextInvoiceList extends LitElement {
     window.removeEventListener("InvoiceClicked");
     super.disconnectedCallback();
   }
-
+  //fetches the last 10 invoices
   obtainInvoices() {
     fetchingCredentials().then((result) => {
       this.credentials = result;
@@ -50,18 +49,17 @@ class NextInvoiceList extends LitElement {
   }
 
   render() {
+    if (this.hasError) {
+      return html`<p>Couldn't receive Invoices</p>`;
+    }
+
     return html`
-      <div id="nextinvoicelistDiv" style="border: 3px dotted rgb(0, 255, 0);">
+      <div id="nextinvoicelistDiv">
         <table id="next-invoicelist">
           <input
             type="button"
-            value="log list"
-            @click=${() => this.obtainInvoices()}
-          />
-          <input
-            type="button"
-            value="see 141099"
-            @click=${() => changeAttributesForNextComponents(141099)}
+            value="see invoice with 2 documents"
+            @click=${() => sendInvoiceIdEvent(141099)}
           />
           ${this.invoice.map(
             (i) =>
@@ -71,7 +69,7 @@ class NextInvoiceList extends LitElement {
                   <input
                     type="button"
                     value="see"
-                    @click=${() => changeAttributesForNextComponents(i)}
+                    @click=${() => sendInvoiceIdEvent(i)}
                   />
                 </td>
               </tr>`

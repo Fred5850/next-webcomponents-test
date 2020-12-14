@@ -26,7 +26,6 @@ class NextMetadata extends LitElement {
         cursor: default !important;
       }
       .nextMetadataDiv {
-        border: 3px dotted rgb(0, 0, 255);
         height: auto;
         width: auto;
       }
@@ -55,10 +54,6 @@ class NextMetadata extends LitElement {
     this.invoiceId = "";
     this.metadata = [[]];
   }
-  InvoiceClickedEventHandler(e) {
-    this.invoiceId = e.detail.invoiceId;
-    this.changeMetaData();
-  }
 
   connectedCallback() {
     super.connectedCallback();
@@ -72,6 +67,11 @@ class NextMetadata extends LitElement {
     window.removeEventListener("InvoiceClicked");
     window.removeEventListener("updateComponents");
     super.disconnectedCallback();
+  }
+
+  InvoiceClickedEventHandler(e) {
+    this.invoiceId = e.detail.invoiceId;
+    this.changeMetaData();
   }
 
   changeMetaData() {
@@ -92,6 +92,7 @@ class NextMetadata extends LitElement {
         });
     });
   }
+
   render() {
     if (this.hasError) {
       return html`<p>Couldn't receive metadata from Invoice</p>`;
