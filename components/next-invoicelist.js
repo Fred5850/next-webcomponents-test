@@ -28,7 +28,7 @@ class NextInvoiceList extends LitElement {
   }
 
   disconnectedCallback() {
-    window.removeEventListener("InvoiceClicked");
+    window.removeEventListener("updateComponents");
     super.disconnectedCallback();
   }
   //fetches the last 10 invoices

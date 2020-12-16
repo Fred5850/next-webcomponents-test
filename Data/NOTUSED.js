@@ -93,4 +93,11 @@ function obtainSpecificContentRepresentation(value, credentials) {
       console.log("response status is not 200, error");
     }
   });
+
+  function changeAttributesForNextComponents(invoiceId) {
+    var components = document.getElementsByClassName("nextComponent");
+    for (var counter = 0; components[counter]; counter++) {
+      components[counter].setAttribute("invoiceId", invoiceId);
+    }
+  }
 }
