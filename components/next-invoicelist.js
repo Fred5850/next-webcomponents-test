@@ -1,9 +1,5 @@
 import { LitElement, html } from "lit-element";
-import {
-  sendInvoiceIdEvent,
-  fetchingCredentials,
-  obtainInvoiceList,
-} from "../data/nextAPI.js";
+import { fetchingCredentials, obtainInvoiceList } from "../data/nextAPI.js";
 
 class NextInvoiceList extends LitElement {
   static get properties() {
@@ -28,7 +24,7 @@ class NextInvoiceList extends LitElement {
   }
 
   disconnectedCallback() {
-    window.removeEventListener("updateComponents");
+    window.removeEventListener("updateComponents", () => this.obtainInvoices());
     super.disconnectedCallback();
   }
   //fetches the last 10 invoices
@@ -47,6 +43,18 @@ class NextInvoiceList extends LitElement {
         });
     });
   }
+  /*
+   * send a InvoiceCliked event
+   */
+  sendInvoiceIdEvent(invoiceId) {
+    window.dispatchEvent(
+      new CustomEvent("InvoiceClicked", {
+        detail: {
+          invoiceId: invoiceId,
+        },
+      })
+    );
+  }
 
   render() {
     if (this.hasError) {
@@ -59,7 +67,7 @@ class NextInvoiceList extends LitElement {
           <input
             type="button"
             value="see invoice with 2 documents"
-            @click=${() => sendInvoiceIdEvent(141099)}
+            @click=${() => this.sendInvoiceIdEvent(141099)}
           />
           ${this.invoices.map(
             (i) =>
@@ -69,7 +77,7 @@ class NextInvoiceList extends LitElement {
                   <input
                     type="button"
                     value="see"
-                    @click=${() => sendInvoiceIdEvent(i)}
+                    @click=${() => this.sendInvoiceIdEvent(i)}
                   />
                 </td>
               </tr>`

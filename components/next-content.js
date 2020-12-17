@@ -60,13 +60,15 @@ class NextContent extends LitElement {
   }
 
   disconnectedCallback() {
-    window.removeEventListener("InvoiceClicked");
-    window.removeEventListener("updateComponents");
+    window.removeEventListener("InvoiceClicked", (e) =>
+      this.InvoiceClickedEventHandler(e)
+    );
+    window.removeEventListener("updateComponents", (e) => this.changeContent());
     super.disconnectedCallback();
   }
 
   changeContent() {
-    if (this.invoiceId == "") {
+    if (this.invoiceId === "") {
       return;
     }
     fetchingCredentials().then((result) => {
@@ -99,11 +101,11 @@ class NextContent extends LitElement {
       return html`<p>Couldn't receive content from Invoice</p>`;
     }
     //if no invoice (Default)
-    if (this.invoiceId == "") {
+    if (this.invoiceId === "") {
       return html`<p>click on document to see content</p>`;
     }
     // render this, if only 1 src
-    if (this.iframeSources.length == 1) {
+    if (this.iframeSources.length === 1) {
       return html`
         <div id="nextcomponent-content-iframe">
           ${this.iframeSources.map(

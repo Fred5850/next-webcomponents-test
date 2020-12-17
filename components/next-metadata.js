@@ -64,8 +64,12 @@ class NextMetadata extends LitElement {
   }
 
   disconnectedCallback() {
-    window.removeEventListener("InvoiceClicked");
-    window.removeEventListener("updateComponents");
+    window.removeEventListener("InvoiceClicked", (e) =>
+      this.InvoiceClickedEventHandler(e)
+    );
+    window.removeEventListener("updateComponents", (e) =>
+      this.changeMetaData()
+    );
     super.disconnectedCallback();
   }
 
@@ -97,7 +101,7 @@ class NextMetadata extends LitElement {
     if (this.hasError) {
       return html`<p>Couldn't receive metadata from Invoice</p>`;
     }
-    if (this.invoiceId == "") {
+    if (this.invoiceId === "") {
       return html`<p>click on document to see metadata</p>`;
     }
     return html`

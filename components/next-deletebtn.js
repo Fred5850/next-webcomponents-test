@@ -27,7 +27,9 @@ class NextDeleteBtn extends LitElement {
   }
 
   disconnectedCallback() {
-    window.removeEventListener("InvoiceClicked");
+    window.removeEventListener("InvoiceClicked", (e) =>
+      this.InvoiceClickedEventHandler(e)
+    );
     super.disconnectedCallback();
   }
 
@@ -35,7 +37,7 @@ class NextDeleteBtn extends LitElement {
     fetchingCredentials().then((result) => {
       this.credentials = result;
       deleteItem(invoiceId, this.credentials).then((result) => {
-        if (200 == result) {
+        if (200 === result) {
           window.dispatchEvent(
             new CustomEvent("updateComponents", {
               detail: {

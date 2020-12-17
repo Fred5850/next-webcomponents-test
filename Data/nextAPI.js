@@ -15,7 +15,7 @@ function fetchingCredentials() {
   })
     .then((response) => response.json())
     .then((data) => {
-      var credentials = data.ticket;
+      let credentials = data.ticket;
       return credentials;
     });
 }
@@ -24,7 +24,7 @@ function fetchingCredentials() {
  */
 function obtainContent(credentials, invoiceId) {
   return obtainItem(credentials, invoiceId).then((data) => {
-    var contents = data.result[0].contents;
+    let contents = data.result[0].contents;
     if (contents.length >= 1) {
       const promises = contents.map((content) => {
         return {
@@ -64,8 +64,23 @@ function convertContentsToURL(content, credentials) {
  */
 function obtainMetaData(credentials, invoiceId) {
   return obtainItem(credentials, invoiceId).then((data) => {
-    var metadataList = data.result[0].metadata;
     let metadataMap = new Map();
+
+    // Check if there is an item
+    if (data.result.length === 0) {
+      console.error("no item viable - Metadata");
+      return metadataMap;
+    }
+
+    let metadataList = data.result[0].metadata;
+
+    //check if there is metadata
+    if (metadataList === 0) {
+      console.error("no metadata viable - Metadata");
+      return metadataMap;
+    }
+
+    // add Metadata to map
     metadataList.forEach((obj) => {
       metadataMap.set(obj.label, obj.value);
     });
@@ -76,7 +91,7 @@ function obtainMetaData(credentials, invoiceId) {
  *  Return an json object (next Item) with help of Credentials and Invoice ID
  */
 function obtainItem(credentials, invoiceId) {
-  var url = CompanyUrl + "/rest/list/1/items/YEL/0/10/InvoiceId/" + invoiceId;
+  let url = CompanyUrl + "/rest/list/1/items/YEL/0/10/InvoiceId/" + invoiceId;
 
   return fetch(url, {
     method: "get",
@@ -89,8 +104,8 @@ function obtainItem(credentials, invoiceId) {
  *  trims and url and returns the correct formatted url for a content
  */
 function obtainContentUrl(id, value, credentials) {
-  var regex = new RegExp("(.*)(?:#.*)");
-  var trimId = regex.exec(id)[1];
+  let removeRevision = new RegExp("(.*)(?:#.*)");
+  let trimId = removeRevision.exec(id)[1];
 
   return (
     CompanyUrl +
@@ -106,7 +121,7 @@ function obtainContentUrl(id, value, credentials) {
  * service for obtainInvoiceList, returns a json object containing 10 items
  */
 function obtainItemList(credentials, max) {
-  var url =
+  let url =
     CompanyUrl + "/rest/list/1/items/YEL/0/" + max + "?sort=-$InvoiceId:long";
   return fetch(url, {
     method: "get",
@@ -120,13 +135,13 @@ function obtainItemList(credentials, max) {
  */
 function obtainInvoiceList(credentials, max) {
   return obtainItemList(credentials, max).then((data) => {
-    var metadataList;
-    var newResult = data.result;
+    let metadataList;
+    let newResult = data.result;
     let invoiceArray = new Array();
     Array.from(newResult).map((value, index) => {
       metadataList = value.metadata;
       metadataList.forEach((obj) => {
-        if ("InvoiceId" == obj.name) {
+        if ("InvoiceId" === obj.name) {
           invoiceArray.push(obj.value);
         }
       });
@@ -142,9 +157,9 @@ function deleteItem(invoiceId, credentials) {
     if (result.length == 0) {
       return "No items with that ID";
     }
-    var urn = result.result[0].id;
+    let urn = result.result[0].id;
     return deleteRequest(urn, credentials).then((response) => {
-      if (response.status != 200) {
+      if (response.status !== 200) {
         console.error(response.status + " : " + response.statusText);
         return response.status;
       }
@@ -156,8 +171,8 @@ function deleteItem(invoiceId, credentials) {
  * calls the Delete request on the item and retruns the response.
  */
 function deleteRequest(urn, credentials) {
-  var newUrn = urn.replace("#", "%23");
-  var url = CompanyUrl + "/rest/id/latest/" + newUrn;
+  let newUrn = urn.replace("#", "%23");
+  let url = CompanyUrl + "/rest/id/latest/" + newUrn;
 
   return fetch(url, {
     method: "delete",
@@ -170,26 +185,12 @@ function deleteRequest(urn, credentials) {
   });
 }
 /*
- * Loobs through all NextComponents and changes the "invoiceId"
- */
-function sendInvoiceIdEvent(invoiceId) {
-  window.dispatchEvent(
-    new CustomEvent("InvoiceClicked", {
-      detail: {
-        invoiceId: invoiceId,
-      },
-    })
-  );
-}
-
-/*
  *  All functions which can be used outside the module
  */
 export {
   fetchingCredentials,
   obtainContent,
   obtainMetaData,
-  sendInvoiceIdEvent,
   obtainInvoiceList,
   deleteItem,
 };
