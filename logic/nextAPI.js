@@ -1,6 +1,7 @@
 const CompanyUrl = "http://localhost:8080";
 const username = "admin";
 const password = "admin";
+const archive = "YEL";
 
 /*
  * Fetching Next credentials, for use in other functions
@@ -91,8 +92,12 @@ function obtainMetaData(credentials, invoiceId) {
  *  Return an json object (next Item) with help of Credentials and Invoice ID
  */
 function obtainItem(credentials, invoiceId) {
-  let url = CompanyUrl + "/rest/list/1/items/YEL/0/10/InvoiceId/" + invoiceId;
-
+  let url =
+    CompanyUrl +
+    "/rest/list/1/items/" +
+    archive +
+    "/0/10/InvoiceId/" +
+    invoiceId;
   return fetch(url, {
     method: "get",
     headers: {
@@ -122,7 +127,12 @@ function obtainContentUrl(id, value, credentials) {
  */
 function obtainItemList(credentials, max) {
   let url =
-    CompanyUrl + "/rest/list/1/items/YEL/0/" + max + "?sort=-$InvoiceId:long";
+    CompanyUrl +
+    "/rest/list/1/items/" +
+    archive +
+    "/0/" +
+    max +
+    "?sort=-$InvoiceId:long";
   return fetch(url, {
     method: "get",
     headers: {
