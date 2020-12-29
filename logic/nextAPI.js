@@ -9,10 +9,10 @@ const archive = "YEL";
 function fetchingCredentials() {
   return fetch(CompanyUrl + "/rest/authenticate", {
     method: "get",
-    headers: new Headers({
+    headers: {
       Authorization: "Basic " + btoa(username + ":" + password),
       "Content-Type": "application/json",
-    }),
+    },
   })
     .then((response) => response.json())
     .then((data) => {
