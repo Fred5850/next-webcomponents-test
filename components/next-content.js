@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "lit-element";
-import { fetchingCredentials, obtainContent } from "../data/nextAPI.js";
+import { fetchingCredentials, obtainContent } from "../logic/nextAPI.js";
 
 class NextContent extends LitElement {
   static get styles() {

@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "lit-element";
-import { fetchingCredentials, obtainMetaData } from "../data/nextAPI.js";
+import { fetchingCredentials, obtainMetaData } from "../logic/nextAPI.js";
 
 class NextMetadata extends LitElement {
   static get styles() {

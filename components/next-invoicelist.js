@@ -1,5 +1,5 @@
 import { LitElement, html } from "lit-element";
-import { fetchingCredentials, obtainInvoiceList } from "../data/nextAPI.js";
+import { fetchingCredentials, obtainInvoiceList } from "../logic/nextAPI.js";
 
 class NextInvoiceList extends LitElement {
   static get properties() {

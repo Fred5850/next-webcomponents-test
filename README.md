@@ -1,6 +1,6 @@
 # next-webcomponents-test
 
-for this to work, you need to download lit-element and es-dev-server
+For this to work locally, you need to download lit-element and any server, i use es-dev-server
 
 npm i lit-element
 npm i -D es-dev-server
