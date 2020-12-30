@@ -38,22 +38,6 @@ class NextMetadata extends LitElement {
       }
     `;
   }
-  static get properties() {
-    return {
-      hasError: { type: Boolean },
-      credentials: { type: String },
-      invoiceId: { type: String },
-      metadata: { type: Map },
-    };
-  }
-
-  constructor() {
-    super();
-    this.hasError = false;
-    this.credentials = "";
-    this.invoiceId = "";
-    this.metadata = [[]];
-  }
 
   connectedCallback() {
     super.connectedCallback();

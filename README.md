@@ -10,3 +10,5 @@ add this under script
 
 start project in dev
 "npm run serve" to open test server.
+
+rememeber to have your Next Demo Database up and change your settings in the nextAPI.js file

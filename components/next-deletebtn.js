@@ -1,13 +1,6 @@
 import { LitElement, html } from "lit-element";
 import { fetchingCredentials, deleteItem } from "../logic/nextAPI.js";
 class NextDeleteBtn extends LitElement {
-  static get properties() {
-    return {
-      invoiceId: { type: String },
-      credentials: { type: String },
-    };
-  }
-
   constructor() {
     super();
     this.invoiceId = "";

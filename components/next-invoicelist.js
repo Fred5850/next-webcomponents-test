@@ -2,14 +2,6 @@ import { LitElement, html } from "lit-element";
 import { fetchingCredentials, obtainInvoiceList } from "../logic/nextAPI.js";
 
 class NextInvoiceList extends LitElement {
-  static get properties() {
-    return {
-      hasError: { Type: Boolean },
-      invoice: { type: Array },
-      credentials: { type: String },
-    };
-  }
-
   constructor() {
     super();
     this.invoices = [];
@@ -66,7 +58,7 @@ class NextInvoiceList extends LitElement {
         <table id="next-invoicelist">
           <input
             type="button"
-            value="see invoice with 2 documents"
+            value="see invoice with 3 documents"
             @click=${() => this.sendInvoiceIdEvent(141099)}
           />
           ${this.invoices.map(

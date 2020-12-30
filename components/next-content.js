@@ -29,15 +29,6 @@ class NextContent extends LitElement {
       }
     `;
   }
-  static get properties() {
-    return {
-      hasError: { Type: Boolean },
-      iframeSources: { Type: Array },
-      credentials: { Type: String },
-      invoiceId: { Type: String },
-    };
-  }
-
   constructor() {
     super();
     this.hasError = false;
@@ -45,12 +36,6 @@ class NextContent extends LitElement {
     this.invoiceId = "";
     this.iframeSources = [];
   }
-
-  InvoiceClickedEventHandler(e) {
-    this.invoiceId = e.detail.invoiceId;
-    this.changeContent();
-  }
-
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener("InvoiceClicked", (e) =>
@@ -65,6 +50,10 @@ class NextContent extends LitElement {
     );
     window.removeEventListener("updateComponents", (e) => this.changeContent());
     super.disconnectedCallback();
+  }
+  InvoiceClickedEventHandler(e) {
+    this.invoiceId = e.detail.invoiceId;
+    this.changeContent();
   }
 
   changeContent() {
@@ -109,7 +98,7 @@ class NextContent extends LitElement {
       return html`
         <div id="nextcomponent-content-iframe">
           ${this.iframeSources.map(
-            (src) => html`<p>only one content: ${src.name}</p>
+            (src) => html`<h2>${src.name}</h2>
               <iframe class="iframe-style" src="${src.url}"></iframe>`
           )}
         </div>
@@ -119,13 +108,13 @@ class NextContent extends LitElement {
     return html` <div id="nextcomponent-content">
       <div class="nextcomponent-content-tabs">
         ${this.iframeSources.map(
-          (src) =>
+          (src, index) =>
             html`
               <div class="nextcomponent-content-tabs-tab">
                 <input
                   type="button"
                   value="${src.name}"
-                  @click=${() => this.hideAndShowContent(src.name)}
+                  @click=${() => this.hideAndShowContent(index + src.name)}
                 />
               </div>
             `
@@ -137,7 +126,7 @@ class NextContent extends LitElement {
             html`
               <iframe
                 class="iframe-style${index !== 0 ? " x-hide-display" : ""}"
-                id="${src.name}"
+                id="${index + src.name}"
                 src="${src.url}"
               ></iframe>
             `
