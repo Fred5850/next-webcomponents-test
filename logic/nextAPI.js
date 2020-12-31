@@ -69,16 +69,14 @@ function obtainMetaData(credentials, invoiceId) {
 
     // Check if there is an item
     if (data.result.length === 0) {
-      console.error("no item viable - Metadata");
-      return metadataMap;
+      throw new genericError("no item viable - error");
     }
 
     let metadataList = data.result[0].metadata;
 
     //check if there is metadata
     if (metadataList === 0) {
-      console.error("no metadata viable - Metadata");
-      return metadataMap;
+      throw new genericError("no metadata viable - error");
     }
 
     // add Metadata to map

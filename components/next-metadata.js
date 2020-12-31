@@ -38,6 +38,13 @@ class NextMetadata extends LitElement {
       }
     `;
   }
+  constructor() {
+    super();
+    this.hasError = false;
+    this.credentials = "";
+    this.invoiceId = "";
+    this.metadata = [[]];
+  }
 
   connectedCallback() {
     super.connectedCallback();
