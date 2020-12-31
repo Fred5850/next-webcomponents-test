@@ -87,11 +87,13 @@ class NextContent extends LitElement {
   render() {
     //render this, if error
     if (this.hasError) {
-      return html`<p>Couldn't receive content from Invoice</p>`;
+      return html`<p>
+        Couldn't receive content from Invoice: ${this.invoiceId}
+      </p>`;
     }
     //if no invoice (Default)
     if (this.invoiceId === "") {
-      return html`<p>click on document to see content</p>`;
+      return html`<p>click on an invoice to see content</p>`;
     }
     // render this, if only 1 src
     if (this.iframeSources.length === 1) {

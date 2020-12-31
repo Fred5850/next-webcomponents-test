@@ -90,10 +90,12 @@ class NextMetadata extends LitElement {
 
   render() {
     if (this.hasError) {
-      return html`<p>Couldn't receive metadata from Invoice</p>`;
+      return html`<p>
+        Couldn't receive metadata from Invoice: ${this.invoiceId}
+      </p>`;
     }
     if (this.invoiceId === "") {
-      return html`<p>click on document to see metadata</p>`;
+      return html`<p>click on an invoice to see metadata</p>`;
     }
     return html`
       <div class="nextMetadataDiv">
