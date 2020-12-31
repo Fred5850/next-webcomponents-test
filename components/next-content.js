@@ -74,7 +74,8 @@ class NextContent extends LitElement {
         });
     });
   }
-
+  //selects all iframes and iterates through them. if the iframes id is the same
+  //as the parameter is removes "x-hide-display" class, else add class it to the element
   hideAndShowContent(id) {
     this.shadowRoot
       .querySelectorAll("#nextcomponent-content-iframes > *")
