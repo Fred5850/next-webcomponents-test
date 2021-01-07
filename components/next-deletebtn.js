@@ -50,7 +50,7 @@ class NextDeleteBtn extends LitElement {
 
   render() {
     return html`
-      <div id="nextdeleteBtnDiv">
+      <div id="nextdeleteBtnDiv" style="border: 3px dotted rgb(0, 0, 255);">
         <input
           type="button"
           value="delete"

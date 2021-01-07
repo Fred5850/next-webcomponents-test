@@ -98,7 +98,7 @@ class NextMetadata extends LitElement {
       return html`<p>click on an invoice to see metadata</p>`;
     }
     return html`
-      <div class="nextMetadataDiv">
+      <div class="nextMetadataDiv" style="border: 3px dotted rgb(255, 0, 0);">
         <table class="nextTable">
           ${Array.from(this.metadata).map(
             (value) =>

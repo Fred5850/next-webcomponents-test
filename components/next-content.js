@@ -99,7 +99,10 @@ class NextContent extends LitElement {
     // render this, if only 1 src
     if (this.iframeSources.length === 1) {
       return html`
-        <div id="nextcomponent-content-iframe">
+        <div
+          id="nextcomponent-content-iframe"
+          style="border: 3px dotted rgb(0, 0, 0);"
+        >
           ${this.iframeSources.map(
             (src) => html`<h2>${src.name}</h2>
               <iframe class="iframe-style" src="${src.url}"></iframe>`
@@ -108,7 +111,10 @@ class NextContent extends LitElement {
       `;
     }
     //render this if there is more than 1 content
-    return html` <div id="nextcomponent-content">
+    return html` <div
+      id="nextcomponent-content"
+      style="border: 3px dotted rgb(0, 0, 0);"
+    >
       <div class="nextcomponent-content-tabs">
         ${this.iframeSources.map(
           (src, index) =>

@@ -54,7 +54,7 @@ class NextInvoiceList extends LitElement {
     }
 
     return html`
-      <div id="nextinvoicelistDiv">
+      <div id="nextinvoicelistDiv" style="border: 3px dotted rgb(0, 255, 0);">
         <table id="next-invoicelist">
           <input
             type="button"
